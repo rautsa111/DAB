@@ -1,0 +1,32 @@
+
+bundle:
+  name: DAB_Project
+  uuid: 9aedf9cc-373f-419f-9560-54e521582c7d
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host:  dbc-4d169ce6-c2fe.cloud.databricks.com
+      root_path: /Workspace/Users/rautbhaji@gmail.com/DataBricks_DEA/DAB/DEV/.bundle/${bundle.name}/${bundle.target}
+    presets:
+      name_prefix: ${workspace.current_user.short_name}
+      source_linked_deployment: false
+    
+
+
+  prod:
+    mode: production
+    workspace:
+      host:  dbc-4d169ce6-c2fe.cloud.databricks.com
+      # We explicitly deploy to /Workspace/Users/rautbhaji@gmail.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/rautbhaji@gmail.com/DataBricks_DEA/DAB/DEV/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: rautbhaji@gmail.com
+        level: CAN_MANAGE
